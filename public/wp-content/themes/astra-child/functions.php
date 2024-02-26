@@ -23,13 +23,19 @@ add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 
 // END ENQUEUE PARENT ACTION
 
-add_filter( 'wp_nav_menu_items','add_admin_link', 10, 2 );
-function add_admin_link( $items, $args ) 
+
+
+
+// Assurez-vous que la fonction de rappel est définie avant de l'ajouter comme un filtre
+function add_admin_link( $items, $args,  ) 
 {
-if (is_user_logged_in() && $args->theme_location == 'menu-1-4925b311') 
-{
-$items .= '<li><a href="'. get_admin_url() .'">Admin</a></li>';
+    // Vérifiez si l'utilisateur est connecté et que le menu est 'menu-1'
+    if ( is_user_logged_in() && $args->theme_location == 'menu-1' ) {
+        // Utilisez admin_url() pour obtenir l'URL de l'administration WordPress
+        $items .= '<li><a href="' . admin_url() . '">Admin</a></li>';
+    }
+    return $items;
 }
-return $items;
-}
+// Ajoutez le filtre avec le bon hook et le bon nombre d'arguments
+add_filter( 'wp_nav_menu_items', 'add_admin_link', 10, 2 );
 ?>

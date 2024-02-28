@@ -28,7 +28,7 @@ function ajouter_lien_admin_dans_menu( $items, $args ) {
     // Vérifier si l'utilisateur est connecté et s'il est un administrateur
     if ( is_user_logged_in() && current_user_can( 'administrator' ) ) {
         // Ajouter le lien "Admin" à la fin du menu
-        $items .= '<li><a href="' . admin_url() . '">Admin</a></li>';
+        $items .= '<li><a href="' . admin_url() . '" class="wpr-menu-item wpr-pointer-item menu-link">Admin</a></li>';
     }
     return $items;
 }
